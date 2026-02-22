@@ -31,54 +31,57 @@ export default function ActiveGame() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 0 }}>
-      {/* Header */}
-      <div className="game-header">
-        <div className="match-info">
-          <strong>Leg {currentLegIndex}</strong> of {currentMatch.bestOf}
-          {'  ·  '}
-          <strong>{w1}–{w2}</strong>
-          {'  ·  '}
-          {currentMatch.gameMode}
+    <div className="active-game">
+      {/* ── Fixed top section ── */}
+      <div className="game-top">
+        <div className="game-header">
+          <div className="match-info">
+            <strong>Leg {currentLegIndex}</strong> of {currentMatch.bestOf}
+            {'  ·  '}
+            <strong>{w1}–{w2}</strong>
+            {'  ·  '}
+            {currentMatch.gameMode}
+          </div>
+          <div className="header-actions">
+            <button
+              className="btn-icon"
+              title="Undo"
+              disabled={undoStack.length === 0}
+              onClick={() => dispatch({ type: 'UNDO' })}
+            >
+              ↩
+            </button>
+            <button
+              className="btn-icon"
+              title="Redo"
+              disabled={redoStack.length === 0}
+              onClick={() => dispatch({ type: 'REDO' })}
+            >
+              ↪
+            </button>
+            <button
+              className="btn-icon"
+              title="Abandon match"
+              style={{ color: 'var(--danger)' }}
+              onClick={handleAbandon}
+            >
+              ✕
+            </button>
+          </div>
         </div>
-        <div className="header-actions">
-          <button
-            className="btn-icon"
-            title="Undo"
-            disabled={undoStack.length === 0}
-            onClick={() => dispatch({ type: 'UNDO' })}
-          >
-            ↩
-          </button>
-          <button
-            className="btn-icon"
-            title="Redo"
-            disabled={redoStack.length === 0}
-            onClick={() => dispatch({ type: 'REDO' })}
-          >
-            ↪
-          </button>
-          <button
-            className="btn-icon"
-            title="Abandon match"
-            style={{ color: 'var(--danger)' }}
-            onClick={handleAbandon}
-          >
-            ✕
-          </button>
-        </div>
-      </div>
 
-      <div className="screen" style={{ paddingTop: 12, overflowY: 'auto', flex: 1 }}>
         <Scoreboard match={currentMatch} />
 
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-          <strong style={{ color: 'var(--accent)' }}>{currentPlayerName}</strong>'s turn
-          {' · '}needs <strong style={{ color: 'var(--text-primary)' }}>{currentRemaining}</strong> to checkout
+        <div className="turn-indicator">
+          <span className="turn-player">{currentPlayerName}</span>
+          <span className="turn-needs"> needs {currentRemaining} to checkout</span>
         </div>
 
-        <ScoreEntry onSubmit={handleScore} maxScore={currentRemaining} />
+        <ScoreEntry onSubmit={handleScore} currentPlayerName={currentPlayerName} />
+      </div>
 
+      {/* ── Scrollable history ── */}
+      <div className="game-history">
         <TurnHistory match={currentMatch} />
       </div>
 
