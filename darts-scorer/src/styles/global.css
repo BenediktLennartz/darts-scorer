@@ -1,0 +1,776 @@
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222;
+  --bg-card-active: #1a2d1c;
+  --accent: #00a651;
+  --accent-dim: #007a3a;
+  --accent-glow: rgba(0, 166, 81, 0.15);
+  --text-primary: #f0f0f0;
+  --text-muted: #777;
+  --text-accent: #00a651;
+  --danger: #e53935;
+  --danger-dim: #b71c1c;
+  --border: #2a2a2a;
+  --border-accent: rgba(0, 166, 81, 0.4);
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100%;
+}
+
+/* ── Utility ── */
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.card.active {
+  background: var(--bg-card-active);
+  border-color: var(--border-accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ── Buttons ── */
+button {
+  cursor: pointer;
+  border: none;
+  font: inherit;
+  border-radius: var(--radius);
+  transition: background 0.15s, opacity 0.15s;
+}
+
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+  padding: 14px 24px;
+  width: 100%;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #00bf5c;
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  font-size: 0.95rem;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: rgba(229, 57, 53, 0.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  font-size: 0.875rem;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+.btn-icon {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: var(--radius);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.btn-icon:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+}
+
+.btn-icon.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Header ── */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.page-header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.page-header .back-btn {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.page-header .back-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+/* ── Inputs ── */
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+
+input[type="text"] {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--accent);
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── Select ── */
+select {
+  appearance: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  padding: 12px 36px 12px 14px;
+  font: inherit;
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23777' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: var(--accent);
+}
+
+/* ── Section labels ── */
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+/* ── Pill selector ── */
+.pill-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pill.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+.pill:hover:not(.selected) {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 32px 0;
+  font-size: 0.95rem;
+}
+
+/* ── Scrollable list ── */
+.scroll-list {
+  overflow-y: auto;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Home screen ── */
+.home-logo {
+  text-align: center;
+  padding: 24px 0 8px;
+}
+
+.home-logo .dart-icon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+.home-logo h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.home-logo .subtitle {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Match history card ── */
+.match-history-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match-history-item .players-line {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.match-history-item .result-line {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.match-history-item .winner-badge {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ── Player list item ── */
+.player-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.player-list-item .player-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* ── Scoreboard ── */
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.score-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 14px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.score-card.active {
+  background: var(--bg-card-active);
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.score-card .player-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score-card.active .player-name {
+  color: var(--accent);
+}
+
+.score-card .remaining {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.score-card .leg-wins {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.score-card .throw-arrow {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.score-card.active .throw-arrow {
+  opacity: 1;
+}
+
+/* ── Game header ── */
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 0;
+}
+
+.game-header .match-info {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.game-header .match-info strong {
+  color: var(--text-primary);
+}
+
+.game-header .header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* ── Score entry ── */
+.score-entry {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+}
+
+.score-display {
+  text-align: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.score-display .entered-score {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  min-height: 3rem;
+}
+
+.score-display .score-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.numpad-btn {
+  background: #222;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 18px;
+  border-radius: var(--radius);
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+}
+
+.numpad-btn:hover:not(:disabled) {
+  background: #2d2d2d;
+}
+
+.numpad-btn:active:not(:disabled) {
+  background: #333;
+}
+
+.numpad-btn.zero {
+  grid-column: span 2;
+}
+
+.numpad-btn.clear {
+  color: var(--danger);
+  font-size: 1rem;
+}
+
+.numpad-btn.backspace {
+  font-size: 1.2rem;
+}
+
+.submit-btn {
+  background: var(--accent);
+  color: #000;
+  font-weight: 800;
+  padding: 16px;
+  width: 100%;
+  font-size: 1.1rem;
+  border-radius: var(--radius);
+  letter-spacing: 0.02em;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #00bf5c;
+}
+
+.submit-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Undo/Redo ── */
+.undo-redo-row {
+  display: flex;
+  gap: 8px;
+}
+
+.undo-redo-row button {
+  flex: 1;
+}
+
+/* ── Turn History ── */
+.turn-history {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.turn-history h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.history-table th {
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-table td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(42,42,42,0.5);
+  color: var(--text-primary);
+}
+
+.history-table tr:first-child td {
+  background: rgba(0, 166, 81, 0.06);
+}
+
+.history-table .bust-row td {
+  color: var(--text-muted);
+}
+
+.history-table .bust-badge {
+  background: rgba(229,57,53,0.15);
+  color: var(--danger);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+.history-table .leg-separator td {
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(0, 166, 81, 0.05);
+  border-bottom: 1px solid var(--border-accent);
+}
+
+/* ── Double Out Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.modal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 40px var(--accent-glow);
+}
+
+.modal-box .modal-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.modal-box h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.modal-box p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.modal-box .modal-score {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modal-btn-yes {
+  background: var(--accent);
+  color: #000;
+  font-weight: 800;
+  padding: 16px;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.modal-btn-yes:hover {
+  background: #00bf5c;
+}
+
+.modal-btn-no {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  font-weight: 600;
+  padding: 16px;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.modal-btn-no:hover {
+  background: #2a2a2a;
+}
+
+/* ── Match Result ── */
+.result-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 24px;
+  text-align: center;
+}
+
+.result-screen .trophy {
+  font-size: 5rem;
+}
+
+.result-screen h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.result-screen .winner-name {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.result-screen .leg-breakdown {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.leg-stat {
+  text-align: center;
+}
+
+.leg-stat .leg-count {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.leg-stat .leg-count.winner-count {
+  color: var(--accent);
+}
+
+.leg-stat .leg-player-name {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.vs-divider {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  align-self: center;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
