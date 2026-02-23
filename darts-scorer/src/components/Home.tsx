@@ -75,6 +75,13 @@ export default function Home() {
           >
             Manage Players
           </button>
+          <button
+            className="btn-secondary"
+            onClick={() => dispatch({ type: 'NAVIGATE', view: 'stats' })}
+            disabled={matchHistory.length === 0}
+          >
+            Statistics
+          </button>
         </div>
 
         {recentHistory.length > 0 && (

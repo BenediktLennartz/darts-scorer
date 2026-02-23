@@ -42,7 +42,7 @@ export interface AppState {
   pendingScore: number;      // the score that triggered the double-out prompt
   undoStack: Match[];
   redoStack: Match[];
-  view: 'home' | 'players' | 'setup' | 'game' | 'result';
+  view: 'home' | 'players' | 'setup' | 'game' | 'result' | 'stats';
 }
 
 export type Action =

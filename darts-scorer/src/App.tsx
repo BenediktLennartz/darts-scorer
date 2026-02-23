@@ -4,6 +4,7 @@ import PlayerManager from './components/PlayerManager';
 import GameSetup from './components/GameSetup';
 import ActiveGame from './components/ActiveGame';
 import MatchResult from './components/MatchResult';
+import Stats from './components/Stats';
 
 export default function App() {
   const { state } = useStore();
@@ -19,6 +20,8 @@ export default function App() {
       return <ActiveGame />;
     case 'result':
       return <MatchResult />;
+    case 'stats':
+      return <Stats />;
     default:
       return <Home />;
   }
