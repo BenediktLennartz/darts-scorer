@@ -432,6 +432,32 @@ select:focus {
   opacity: 1;
 }
 
+.score-card .player-name.selectable {
+  cursor: pointer;
+}
+
+.score-card .player-name.selectable:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.score-card.active .player-name.selectable:hover {
+  color: var(--accent);
+}
+
+.score-card .starter-hint {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.score-card.active .starter-hint {
+  color: var(--accent-dim);
+}
+
 /* ── Active game layout ── */
 .active-game {
   display: flex;

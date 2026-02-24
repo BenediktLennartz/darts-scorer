@@ -106,6 +106,21 @@ function reducer(state: AppState, action: Action): AppState {
       };
     }
 
+    case 'SET_LEG_STARTER': {
+      if (!state.currentMatch) return state;
+      const match = state.currentMatch;
+      const leg = match.legs[match.legs.length - 1];
+      if (leg.turns.length > 0) return state;
+      const updatedLeg = { ...leg, startingPlayerId: action.playerId };
+      return {
+        ...state,
+        currentMatch: {
+          ...match,
+          legs: [...match.legs.slice(0, -1), updatedLeg],
+        },
+      };
+    }
+
     case 'SUBMIT_TURN': {
       if (!state.currentMatch || state.pendingDoubleOut) return state;
       const match = state.currentMatch;

@@ -3,9 +3,11 @@ import { getCurrentPlayerId, getPlayerRemaining } from '../gameLogic';
 
 interface Props {
   match: Match;
+  canSelectStarter?: boolean;
+  onSelectStarter?: (playerId: string) => void;
 }
 
-export default function Scoreboard({ match }: Props) {
+export default function Scoreboard({ match, canSelectStarter, onSelectStarter }: Props) {
   const currentPlayerId = getCurrentPlayerId(match);
 
   return (
@@ -19,7 +21,18 @@ export default function Scoreboard({ match }: Props) {
         return (
           <div key={playerId} className={`score-card${isActive ? ' active' : ''}`}>
             <div className="throw-arrow">▼</div>
-            <div className="player-name">{name}</div>
+            <div
+              className={`player-name${canSelectStarter ? ' selectable' : ''}`}
+              onClick={canSelectStarter ? () => onSelectStarter?.(playerId) : undefined}
+              title={canSelectStarter && !isActive ? 'Tap to go first' : undefined}
+            >
+              {name}
+            </div>
+            {canSelectStarter && (
+              <div className="starter-hint">
+                {isActive ? 'going first' : 'tap to go first'}
+              </div>
+            )}
             <div className="remaining">{remaining}</div>
             <div className="leg-wins">
               {wins} leg{wins !== 1 ? 's' : ''}

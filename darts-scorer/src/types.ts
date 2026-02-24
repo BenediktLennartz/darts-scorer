@@ -50,6 +50,7 @@ export type Action =
   | { type: 'ADD_PLAYER'; name: string }
   | { type: 'REMOVE_PLAYER'; id: string }
   | { type: 'START_MATCH'; players: [string, string]; gameMode: GameMode; bestOf: number }
+  | { type: 'SET_LEG_STARTER'; playerId: string }
   | { type: 'SUBMIT_TURN'; score: number }
   | { type: 'CONFIRM_DOUBLE_OUT'; confirmed: boolean }
   | { type: 'UNDO' }

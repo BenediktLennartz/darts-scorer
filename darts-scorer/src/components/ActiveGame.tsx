@@ -16,6 +16,8 @@ export default function ActiveGame() {
   const currentRemaining = getPlayerRemaining(currentMatch, currentPlayerId);
 
   const currentLegIndex = currentMatch.legs.length;
+  const currentLeg = currentMatch.legs[currentMatch.legs.length - 1];
+  const canSelectStarter = currentLeg.turns.length === 0;
   const [p1, p2] = currentMatch.players;
   const w1 = currentMatch.legWins[p1] ?? 0;
   const w2 = currentMatch.legWins[p2] ?? 0;
@@ -70,7 +72,11 @@ export default function ActiveGame() {
           </div>
         </div>
 
-        <Scoreboard match={currentMatch} />
+        <Scoreboard
+          match={currentMatch}
+          canSelectStarter={canSelectStarter}
+          onSelectStarter={(playerId) => dispatch({ type: 'SET_LEG_STARTER', playerId })}
+        />
 
         <div className="turn-indicator">
           <span className="turn-player">{currentPlayerName}</span>
