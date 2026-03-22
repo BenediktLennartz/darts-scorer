@@ -39,7 +39,7 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  max-width: 480px;
+  max-width: 640px;
   margin: 0 auto;
   min-height: 100%;
 }
@@ -380,8 +380,10 @@ select:focus {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 18px 14px;
-  text-align: center;
+  padding: 14px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   transition: all 0.2s;
 }
 
@@ -391,45 +393,73 @@ select:focus {
   box-shadow: 0 0 16px var(--accent-glow);
 }
 
-.score-card .player-name {
+/* Top section */
+.score-card .card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.score-card.card-left .card-top  { flex-direction: row; }
+.score-card.card-right .card-top { flex-direction: row-reverse; }
+
+/* Stats column */
+.score-card .card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.score-card .stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.score-card .stat-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.score-card .stat-value {
   font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.score-card.active .stat-value {
+  color: var(--accent);
+}
+
+/* Score column */
+.score-card .card-score-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.score-card.card-left  .card-score-info { align-items: flex-end;   text-align: right; }
+.score-card.card-right .card-score-info { align-items: flex-start; text-align: left;  }
+
+.score-card .player-name {
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  margin-bottom: 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .score-card.active .player-name {
   color: var(--accent);
-}
-
-.score-card .remaining {
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-}
-
-.score-card .leg-wins {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 6px;
-}
-
-.score-card .throw-arrow {
-  font-size: 1.2rem;
-  margin-bottom: 4px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.score-card.active .throw-arrow {
-  opacity: 1;
 }
 
 .score-card .player-name.selectable {
@@ -437,25 +467,70 @@ select:focus {
 }
 
 .score-card .player-name.selectable:hover {
-  color: var(--text-primary);
   text-decoration: underline;
   text-decoration-style: dotted;
 }
 
-.score-card.active .player-name.selectable:hover {
-  color: var(--accent);
-}
-
 .score-card .starter-hint {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
 }
 
 .score-card.active .starter-hint {
   color: var(--accent-dim);
+}
+
+.score-card .remaining {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.score-card .leg-wins {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Divider */
+.score-card .card-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* Checkout row */
+.score-card .card-checkout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-card .checkout-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.score-card .checkout-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score-card.active .checkout-value {
+  color: var(--accent);
 }
 
 /* ── Active game layout ── */
@@ -575,76 +650,83 @@ select:focus {
 }
 
 /* ── Turn History ── */
-.turn-history {
+.visit-history {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
-.turn-history h3 {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.vh-header {
+  display: flex;
+  justify-content: space-between;
   padding: 14px 0 8px;
   position: sticky;
   top: 0;
   background: var(--bg-primary);
   z-index: 1;
+  border-bottom: 1px solid var(--border);
 }
 
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-}
-
-.history-table th {
-  text-align: left;
-  color: var(--text-muted);
+.vh-col-name {
   font-size: 0.75rem;
   font-weight: 600;
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 6px 10px;
+  letter-spacing: 0.08em;
+}
+
+.vh-row {
+  display: flex;
   border-bottom: 1px solid var(--border);
 }
 
-.history-table td {
-  padding: 10px 10px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-.history-table tbody tr:first-child td {
+.vh-row:first-child {
   background: rgba(0, 166, 81, 0.07);
 }
 
-.history-table .bust-row td {
+.vh-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 9px 0;
+  min-width: 0;
+}
+
+.vh-cell.left {
+  justify-content: space-between;
+  padding-right: 12px;
+  border-right: 1px solid var(--border);
+}
+
+.vh-cell.right {
+  justify-content: space-between;
+  padding-left: 12px;
+}
+
+.vh-score {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.vh-score.bust {
+  color: var(--danger);
+}
+
+.vh-score.high {
+  color: var(--accent);
+}
+
+.vh-remaining {
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
-.history-table .bust-badge {
-  background: rgba(229,57,53,0.18);
-  color: var(--danger);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 4px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-
-.history-table .leg-separator td {
-  padding: 6px 10px;
-  font-size: 0.75rem;
-  color: var(--accent);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: rgba(0, 166, 81, 0.06);
-  border-bottom: 1px solid var(--border-accent);
-  border-top: 1px solid var(--border-accent);
+.vh-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 24px 0;
 }
 
 /* ── Double Out Modal ── */
